@@ -10,10 +10,11 @@ public class App extends Application {
 
     public void start(Stage primaryStage) {
         PetApp virtualPet = new PetApp(primaryStage, 500, 500);
+        
         virtualPet.startApp("Fido", "Dog");
 
-        // PetSelectionScene petSelectionScene = new PetSelectionScene(primaryStage);
-        // petSelectionScene.startApp();
+        PetSelectionScene a = new PetSelectionScene(primaryStage, 500, 500);
+        a.startApp();
     }
 
 }
