@@ -1,6 +1,9 @@
 package com.codedotorg;
 
 import javafx.scene.control.Button;
+import javafx.scene.control.RadioButton;
+import javafx.scene.control.TextField;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 
@@ -35,7 +38,8 @@ public class PetSelectionScene extends PetApp {
     /**
      * Sets petName to the name entered by the user
      */
-    public void setPetName() {
+    public void setPetName(String name) {
+        petName = name;
 
         
 
@@ -44,8 +48,8 @@ public class PetSelectionScene extends PetApp {
     /**
      * Sets petType to the type of pet chosen by the user
      */
-    public void setPetType() {
-
+    public void setPetType(String type) {
+        petType = type;
 
 
     }
@@ -57,8 +61,36 @@ public class PetSelectionScene extends PetApp {
      */
     public VBox createPetSelectionLayout() {
 
+        VBox layout = new VBox();
+        RadioButton dogButton = new RadioButton("Dog");
+        RadioButton catButton = new RadioButton("Cat");
 
-        return null;
+        ToggleGroup group = new ToggleGroup();
+        dogButton.setToggleGroup(group);
+        catButton.setToggleGroup(group);
+        
+        dogButton.setOnAction(e -> {
+            if (dogButton.isSelected()) {
+                setPetType("Dog");
+            }
+        });
+        
+        catButton.setOnAction(e -> {
+            if (catButton.isSelected()) {
+                setPetType("Cat");
+            }
+        });
+        
+        TextField petNameField = new TextField();
+        petNameField.setPromptText("Enter pet name");
+
+        petNameField.textProperty().addListener((observable, oldValue, newValue) -> {
+            setPetName(newValue);
+        });
+        
+        layout.getChildren().addAll(petNameField, dogButton, catButton, createSubmitButton());
+
+        return layout;
     }
 
     /**
